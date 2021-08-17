@@ -1,4 +1,4 @@
-name: Test Example
+name: ROS2 CI
 
 on:
   pull_request:
