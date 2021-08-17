@@ -15,18 +15,24 @@ jobs:
       fail-fast: false
     steps:
     - name: Setup ROS 2
-      uses: ros-tooling/setup-ros@0.0.15
-    with:
+      uses: ros-tooling/setup-ros@v0.2
+      with:
         required-ros-distributions: eloquent
-
-    - name: Run Tests
-      uses: ros-tooling/action-ros-ci@0.0.13
+    - name: Run Test
+      uses: ros-tooling/action-ros-ci@v0.2
       with:
         package-name: cpp_pubsub
-
+        target-ros2-distro: eloquent
+        colcon-defaults: |
+          {
+            "build": {
+              "mixin": ["coverage-gcc", "coverage-pytest"]
+            }
+          }
+        colcon-mixin-repository: https://raw.githubusercontent.com/colcon/colcon-mixin-repository/1ddb69bedfd1f04c2f000e95452f7c24a4d6176b/index.yaml
     - name: Upload Logs
       uses: actions/upload-artifact@v1
-      with:
+      with: 
         name: colcon-logs
-        path: ros_ws/log
+        path: ros2_ci/log
       if: always()
