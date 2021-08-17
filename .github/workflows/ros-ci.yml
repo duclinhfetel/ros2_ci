@@ -2,9 +2,11 @@ name: ROS2 CI
 
 on:
   pull_request:
+    branches: 
+      - main
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build-and-test:
