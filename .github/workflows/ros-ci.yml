@@ -2,18 +2,14 @@ name: ROS2 CI
 
 on:
   pull_request:
-    branches: 
-      - main
   push:
     branches:
       - main
 
 jobs:
   build-and-test:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-18.04
     strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
       fail-fast: false
     steps:
     - name: Setup ROS 2
@@ -35,6 +31,7 @@ jobs:
             }
           }
         colcon-mixin-repository: https://raw.githubusercontent.com/colcon/colcon-mixin-repository/1ddb69bedfd1f04c2f000e95452f7c24a4d6176b/index.yaml
+    - run: mkdir -p ros_ws/log
     - name: Upload Logs
       uses: actions/upload-artifact@v1
       with: 
